@@ -1,0 +1,7 @@
+---
+- title:  Item 1
+  exid:   element1
+  status: open
+- title:  Item 2
+  exid:   element2
+  status: open

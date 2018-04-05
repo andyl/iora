@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "iora"
+
+puts "THIS IS IORA - the Issue Oracle"

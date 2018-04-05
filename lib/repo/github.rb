@@ -1,7 +1,8 @@
 require 'ext/array'
+require 'octokit'
 
-module Iora
-  class GhSync
+module Repo
+  class Github
 
     attr_accessor :repo
 
