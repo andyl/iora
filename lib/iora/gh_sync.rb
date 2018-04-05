@@ -24,8 +24,8 @@ module Iora
       return if issues.blank?
       issues.each_with_index do |el, idx|
         attrs = {
-          stm_repo_uuid: repo.uuid           ,
-          type:          "Issue::GitHub"     ,
+          stm_repo_uuid: repo.uuid         ,
+          type:          "Issue::GitHub"   ,
           exid:          el["id"]          ,
           stm_title:     el["title"]       ,
           stm_labels:    labels_for(el)    ,
