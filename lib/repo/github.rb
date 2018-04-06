@@ -1,24 +1,52 @@
 require 'ext/array'
 require 'octokit'
+require 'iora/config'
 
 module Repo
   class Github
 
-    attr_accessor :repo
+    attr_accessor :client, :repo_name, :repo_data
 
-    def initialize(args)
-      @repo = Repo.find_by(args)
-      sync_bugs
+    def initialize(name, _opts = {})
+      @repo_name = name
+      @repo_data = []
+      @client = octo_client
+      # @repo = Repo.find_by(name)
+      # sync_bugs
     end
 
-    def self.from_repo(repo)
-      instance = allocate
-      instance.repo = repo
-      instance.send(:sync_bugs)
-      instance
+    # def self.from_repo(repo)
+    #   instance = allocate
+    #   instance.repo = repo
+    #   instance.send(:sync_bugs)
+    #   instance
+    # end
+
+    def issues
+      []
+    end
+
+    def issue(_id)
+      {}
     end
 
     private
+
+    def octo_client
+      @octoclient ||= begin
+        config = Iora::Config.new(:github)
+        Octokit.configure do |c|
+          c.login    = config.username
+          c.password = config.password
+        end
+        stack = Faraday::RackBuilder.new do |builder|
+          builder.use Faraday::HttpCache, serializer: Marshal, shared_cache: false
+          builder.use Octokit::Response::RaiseError
+          builder.adapter Faraday.default_adapter
+        end
+        Octokit.middleware = stack
+      end
+    end
 
     def sync_bugs
       issues = Octokit.issues(repo.name)
