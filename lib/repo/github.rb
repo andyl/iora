@@ -5,25 +5,16 @@ require 'iora/config'
 module Repo
   class Github
 
-    attr_accessor :client, :repo_name, :repo_data
+    attr_accessor :repo_name, :repo_data
 
     def initialize(name, _opts = {})
+      configure_octokit
       @repo_name = name
-      @repo_data = []
-      @client = octo_client
-      # @repo = Repo.find_by(name)
-      # sync_bugs
+      @repo_data = Octokit.issues(repo_name)
     end
 
-    # def self.from_repo(repo)
-    #   instance = allocate
-    #   instance.repo = repo
-    #   instance.send(:sync_bugs)
-    #   instance
-    # end
-
     def issues
-      []
+      repo_data
     end
 
     def issue(_id)
@@ -32,19 +23,13 @@ module Repo
 
     private
 
-    def octo_client
+    def configure_octokit
       @octoclient ||= begin
         config = Iora::Config.new(:github)
         Octokit.configure do |c|
           c.login    = config.username
           c.password = config.password
         end
-        stack = Faraday::RackBuilder.new do |builder|
-          builder.use Faraday::HttpCache, serializer: Marshal, shared_cache: false
-          builder.use Octokit::Response::RaiseError
-          builder.adapter Faraday.default_adapter
-        end
-        Octokit.middleware = stack
       end
     end
 
@@ -63,13 +48,7 @@ module Repo
           html_url:      el["html_url"]    ,
           synced_at:     BugmTime.now
         }.stringify_keys
-        add_event("bug#{idx}".to_sym, Event::IssueSynced.new(event_opts(attrs)))
       end
-      add_event :repo, Event::RepoSynced.new(event_opts(uuid: repo.uuid))
-    end
-
-    def event_opts(args)
-      cmd_opts.merge(args)
     end
 
     def labels_for(el)
