@@ -1,5 +1,13 @@
 require "bundler/setup"
-require "iora"
+require "vcr"
+
+VCR.configure do |c|
+  c.cassette_library_dir = "spec/_vcr"
+  c.hook_into :webmock
+  c.configure_rspec_metadata!
+end
+
+USE_VCR = {vcr: {allow_playback_repeats: true}}
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
