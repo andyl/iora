@@ -1,7 +1,7 @@
 require 'yaml'
 
 module Repo
-  class Test
+  class Yaml
 
     attr_accessor :repo_data, :data_file
 

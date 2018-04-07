@@ -1,6 +1,6 @@
 require "forwardable"
 require "repo/github"
-require "repo/test"
+require "repo/yaml"
 
 class Iora
 
@@ -16,7 +16,7 @@ class Iora
     @type = type
     @repo_id = id
     @repo = case type
-      when :test then Repo::Test.new(id)
+      when :yaml then Repo::Yaml.new(id)
       when :github then Repo::Github.new(id)
       else
         raise "Invalid Repo Type"

@@ -2,7 +2,7 @@ require 'iora'
 
 RSpec.describe Iora do
 
-  REPO_TYPE = :test
+  REPO_TYPE = :yaml
   REPO_ID = "data/test1.yml"
 
   let(:klas) { described_class }
@@ -32,7 +32,7 @@ RSpec.describe Iora do
 
     it 'constructs a repo' do
       expect(subject.repo).to_not be_nil
-      expect(subject.repo).to be_a(Repo::Test)
+      expect(subject.repo).to be_a(Repo::Yaml)
     end
 
     it 'raises error on invalid type' do

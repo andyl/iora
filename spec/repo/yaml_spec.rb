@@ -1,6 +1,6 @@
-require 'repo/test'
+require 'repo/yaml'
 
-RSpec.describe Repo::Test do
+RSpec.describe Repo::Yaml do
 
   DATA_FILE = "data/test1.yml"
 
