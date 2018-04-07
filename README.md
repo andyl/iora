@@ -2,7 +2,7 @@
 
 Bugmark Issue Oracle (`pronounced 'eye-ora'`)
 
-This gem interfaces with issue repositories, extracts issue data and
+This gem interfaces with issue sources, extracts issue data and
 emits a Bugmark-compatible hash.
 
 ## Installation

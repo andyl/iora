@@ -1,6 +1,6 @@
 require 'yaml'
 
-module Repo
+module Source
   class Yaml
 
     attr_accessor :repo_data, :data_file

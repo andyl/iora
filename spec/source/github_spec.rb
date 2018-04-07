@@ -1,7 +1,7 @@
 require 'spec_helper'
-require 'repo/github'
+require 'source/github'
 
-RSpec.describe Repo::Github do
+RSpec.describe Source::Github do
 
   REPO_NAME = "andyl/iora"
 

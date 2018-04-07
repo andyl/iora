@@ -2,7 +2,7 @@ require 'ext/array'
 require 'octokit'
 require 'iora/config'
 
-module Repo
+module Source
   class Github
 
     attr_accessor :repo_name, :repo_data

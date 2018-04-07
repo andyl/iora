@@ -1,6 +1,6 @@
 require "forwardable"
-require "repo/github"
-require "repo/yaml"
+require "source/github"
+require "source/yaml"
 
 class Iora
 
@@ -8,18 +8,18 @@ class Iora
 
   extend Forwardable
 
-  attr_accessor :type, :repo_id, :repo
+  attr_accessor :type, :source_id, :source
 
-  delegate %i(issue issues) => :repo
+  delegate %i(issue issues) => :source
 
   def initialize(type, id)
     @type = type
-    @repo_id = id
-    @repo = case type
-      when :yaml then Repo::Yaml.new(id)
-      when :github then Repo::Github.new(id)
+    @source_id = id
+    @source = case type
+      when :yaml then Source::Yaml.new(id)
+      when :github then Source::Github.new(id)
       else
-        raise "Invalid Repo Type"
+        raise "Invalid Source Type"
     end
   end
 end
