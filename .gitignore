@@ -10,3 +10,4 @@
 /tmp/
 .iora_rc.yml
 .rspec_status
+*.gem

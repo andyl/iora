@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     iora (0.1.0)
-      deep_merge
+      deep_merge (~> 1.2)
       octokit (~> 4.6)
 
 GEM
@@ -88,14 +88,14 @@ PLATFORMS
 
 DEPENDENCIES
   bundler (~> 1.16)
-  faraday-http-cache
-  guard-rspec
+  faraday-http-cache (~> 2.0)
+  guard-rspec (~> 4.7)
   iora!
-  pry
+  pry (~> 0.11)
   rake (~> 10.0)
   rspec (~> 3.0)
-  vcr
-  webmock
+  vcr (~> 4.0)
+  webmock (~> 3.3)
 
 BUNDLED WITH
    1.16.1

@@ -5,12 +5,13 @@ require 'iora'
 Gem::Specification.new do |spec|
   spec.name          = "iora"
   spec.version       = Iora::VERSION
-  spec.authors       = ["andyl"]
+  spec.authors       = ["Andrew Leak"]
   spec.email         = ["andy@r210.com"]
 
   spec.summary       = %q{Issue Oracle}
-  spec.description   = %q{Issue Oracle}
-  spec.homepage      = "http://github.com/andyl/iora"
+  spec.description   = %q{Bugmark Issue Oracle}
+  spec.homepage      = "http://github.com/bugmark/iora"
+  spec.license       = "Nonstandard"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the
   # 'allowed_push_host' to allow pushing to a single host or delete this
@@ -30,13 +31,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "octokit", "~> 4.6"
-  spec.add_dependency "deep_merge"
+  spec.add_dependency "deep_merge", "~> 1.2"
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "guard-rspec"
-  spec.add_development_dependency "vcr"
-  spec.add_development_dependency "faraday-http-cache"
-  spec.add_development_dependency "webmock"
+  spec.add_development_dependency "pry", "~> 0.11"
+  spec.add_development_dependency "guard-rspec", "~> 4.7"
+  spec.add_development_dependency "vcr", "~> 4.0"
+  spec.add_development_dependency "faraday-http-cache", "~> 2.0"
+  spec.add_development_dependency "webmock", "~> 3.3"
 end
