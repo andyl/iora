@@ -13,9 +13,9 @@ class Iora
   delegate %i(issue issues) => :source
 
   def initialize(type, id)
-    @type = type
+    @type = type.to_sym
     @source_id = id
-    @source = case type
+    @source = case @type
       when :yaml then Source::Yaml.new(id)
       when :github then Source::Github.new(id)
       else
