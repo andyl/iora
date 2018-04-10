@@ -1,6 +1,8 @@
 require 'ext/array'
+require 'ext/hash'
 require 'octokit'
 require 'iora/config'
+require 'iora/issue'
 
 module Source
   class Github
@@ -14,14 +16,30 @@ module Source
     end
 
     def issues
-      repo_data
+      @lcl_issues ||= repo_data.map {|el| convert(el)}
     end
 
-    def issue(_id)
-      {}
+    def issue(exid)
+      issues.select {|x| x["exid"] == exid}.first
     end
 
     private
+
+    def convert(el)
+      base1 = el.to_hash
+        .stringify_keys
+        .map_keys(Iora::Issue.mappings)
+        .map_keys({"stm_status" => "state", "exid" => "id"})
+      consolidate_labels(base1)
+        .only(*Iora::Issue.fields)
+        .without_blanks
+    end
+
+    def consolidate_labels(input)
+      names = input["labels"].map {|el| el[:name]}
+      input["stm_labels"] = names.join(", ")
+      input
+    end
 
     def configure_octokit
       @octoclient ||= begin

@@ -36,7 +36,7 @@ RSpec.describe Iora do
     end
 
     it 'raises error on invalid type' do
-      expect { klas.new(:bing, "bong") }.to raise_exception("Invalid Source Type")
+      expect { klas.new(:bing, "bong") }.to raise_exception(IoraError::InvalidSourceType)
     end
   end
 end

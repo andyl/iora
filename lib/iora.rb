@@ -1,6 +1,7 @@
 require "forwardable"
 require "source/github"
 require "source/yaml"
+require "iora_error"
 
 class Iora
 
@@ -19,7 +20,8 @@ class Iora
       when :yaml then Source::Yaml.new(id)
       when :github then Source::Github.new(id)
       else
-        raise "Invalid Source Type"
+        raise IoraError::InvalidSourceType, "Invalid Source Type (#{type})"
     end
   end
 end
+

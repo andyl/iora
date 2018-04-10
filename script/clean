@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 echo "Clean"
-rm iora*.gem
+rm -f iora*.gem
 

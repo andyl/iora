@@ -1,3 +1,4 @@
+require 'ext/hash'
 require 'yaml'
 
 module Source
@@ -7,16 +8,27 @@ module Source
 
     def initialize(data_file)
       @data_file = File.expand_path(data_file)
-      raise("File Not Found") unless File.exist?(data_file)
+      unless File.exist?(data_file)
+        raise(IoraError::FileNotFound, "File Not Found (#{data_file})")
+      end
       @repo_data = YAML.load_file(data_file)
     end
 
     def issues
-      repo_data
+      repo_data.map {|el| convert(el)}
     end
 
-    def issue(_id)
-      {}
+    def issue(exid)
+      issues.select {|x| x["exid"] == exid}.first
+    end
+
+    private
+
+    def convert(el)
+      el
+        .stringify_keys
+        .map_keys(Iora::Issue.mappings)
+        .only(*Iora::Issue.fields)
     end
   end
 end

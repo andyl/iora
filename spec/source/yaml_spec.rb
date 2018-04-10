@@ -31,7 +31,7 @@ RSpec.describe Source::Yaml do
     end
 
     it 'raises error on invalid datafile' do
-      expect { klas.new("bong") }.to raise_exception("File Not Found")
+      expect { klas.new("bong") }.to raise_exception(IoraError::FileNotFound)
     end
   end
 
