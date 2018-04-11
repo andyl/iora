@@ -13,7 +13,7 @@ class Iora
           "jfields"        =>   nil                         ,
           "stm_issue_uuid" =>   %w(issue_uuid uuid)         ,
           "stm_repo_uuid"  =>   %w(repo_uuid)               ,
-          "stm_title"      =>   %w(title)                   ,
+          "stm_title"      =>   %w(title name)              ,
           "stm_status"     =>   %w(status)                  ,
           "stm_labels"     =>   %w(labels)                  ,
           "stm_jfields"    =>   nil                         ,
