@@ -37,6 +37,14 @@ module Source
       Octokit.update_issue(repo_name, issue_sequence, opts)
     end
 
+    def close(issue_sequence)
+      Octokit.close_issue(repo_name, issue_sequence)
+    end
+
+    def open(issue_sequence)
+      Octokit.reopen_issue(repo_name, issue_sequence)
+    end
+
     def create_comment(issue_sequence, body)
       Octokit.add_comment(repo_name, issue_sequence, body)
     end
