@@ -82,7 +82,9 @@ module Source
     end
 
     def new_issue(seq, title, body, opts = {})
-      {"title" => title, "body" => body, "sequence" => seq}.merge(opts)
+      defaults = {"status" => "open"}
+      base     = {"title" => title, "body" => body, "sequence" => seq}
+      defaults.merge(base).merge(opts)
     end
 
     def new_comment(tgt, body, author = "NA")
