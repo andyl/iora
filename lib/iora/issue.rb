@@ -18,7 +18,7 @@ class Iora
           "stm_body"       =>   %w(body)                    ,
           "stm_status"     =>   %w(status)                  ,
           "stm_labels"     =>   %w(labels)                  ,
-          "stm_comments"   =>   nil                         ,
+          "stm_comments"   =>   %w(comments)                ,
           "stm_jfields"    =>   nil                         ,
           "stm_xfields"    =>   nil                         ,
         }
