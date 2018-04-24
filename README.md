@@ -19,7 +19,7 @@ And then execute:
     
 ## Details
 
-Valid repo types are `:github` and `:yaml`.
+Valid source types are `:github` and `:yaml`.
 
 Repo credentials are stored in a hash:
    

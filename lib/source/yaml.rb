@@ -1,8 +1,9 @@
 require 'ext/hash'
 require 'yaml'
+require_relative './base'
 
 module Source
-  class Yaml
+  class Yaml < Base
 
     attr_accessor :repo_data, :data_file
 

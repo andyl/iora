@@ -3,29 +3,77 @@ require 'ext/hash'
 require 'octokit'
 require 'iora/config'
 require 'iora/issue'
+require 'iora/comment'
+require_relative './base'
 
 module Source
-  class Github
+  class Github < Base
 
-    attr_accessor :repo_name, :repo_data
+    attr_accessor :repo_name, :repo_issues, :repo_comments
+    attr_reader :normalized_issues, :normalized_comments
 
     def initialize(name, _opts = {})
       configure_octokit
       @repo_name = name
-      @repo_data = Octokit.issues(repo_name)
+      @repo_issues   = Octokit.issues(repo_name)
+      @repo_comments = Octokit.issues_comments(repo_name)
     end
 
     def issues
-      @lcl_issues ||= repo_data.map {|el| convert(el)}
+      @normalized_issues   ||= repo_issues.map {|el| normalize_issue(el)}
+      @normalized_comments ||= repo_comments.map {|el| normalize_comment(el)}
+      @lcl_issues ||= combine(normalized_issues, normalized_comments)
     end
 
     def issue(exid)
       issues.select {|x| x["exid"] == exid}.first
     end
 
+    def create(title, body, opts = {})
+      Octokit.create_issue(repo_name, title, body, opts)
+    end
+
+    def update(issue_sequence, opts)
+      Octokit.update_issue(repo_name, issue_sequence, opts)
+    end
+
+    def create_comment(issue_sequence, body)
+      Octokit.add_comment(repo_name, issue_sequence, body)
+    end
+
+    def update_comment(comment_id, body)
+      Octokit.update_comment(repo_name, comment_id, body)
+    end
+
     private
 
-    def convert(el)
+    def combine(issues, comments)
+      issues.map do |iel|
+        iel["stm_comments"] = comments.select do |cel|
+          cel["issue_sequence"] == iel["sequence"]
+        end
+        iel
+      end
+    end
+
+    def normalize_comment(el)
+      lcl_fields = Iora::Comment.fields
+      sel = el.to_hash.stringify_keys
+      sel
+        .map_keys(Iora::Comment.mappings)
+        .map_keys({"exid" => "id"})
+        .merge(comment_fields_for(sel))
+        .only(*lcl_fields)
+        .without_blanks
+    end
+
+    def comment_fields_for(el)
+      seq  = el["issue_url"].split("/").last.to_i
+      auth = el["user"][:login]
+      { "issue_sequence" => seq, "author" => auth }
+    end
+
+    def normalize_issue(el)
       lcl_fields = Iora::Issue.fields + %w(html_url)
       sel = el.to_hash.stringify_keys
       sel
