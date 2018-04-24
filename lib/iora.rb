@@ -11,7 +11,8 @@ class Iora
 
   attr_accessor :type, :source_id, :source
 
-  delegate %i(issue issues create update create_comment update_comment) => :source
+  subs = %i(issue issues create update open close create_comment update_comment)
+  delegate subs => :source
 
   def initialize(type, id)
     @type = type.to_sym
