@@ -82,7 +82,7 @@ module Source
     end
 
     def new_issue(seq, title, body, opts = {})
-      defaults = {"status" => "open"}
+      defaults = {"status" => "open", "exid" => SecureRandom.hex(3)}
       base     = {"title" => title, "body" => body, "sequence" => seq}
       defaults.merge(base).merge(opts)
     end
