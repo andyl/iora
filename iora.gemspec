@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.executables   = %w(iora)
   spec.require_paths = ["lib"]
 
-  # spec.add_dependency "octokit", "~> 4.6"
+  spec.add_dependency "octokit", "~> 4.6"
   spec.add_dependency "deep_merge", "~> 1.2"
   spec.add_development_dependency "bundler", "~> 1.16"
   spec.add_development_dependency "rake", "~> 10.0"
