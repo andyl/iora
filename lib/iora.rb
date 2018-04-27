@@ -1,11 +1,10 @@
 require "forwardable"
 require "source/github"
 require "source/yaml"
+require "iora/version"
 require "iora_error"
 
 class Iora
-
-  VERSION = "0.1.1"
 
   extend Forwardable
 
