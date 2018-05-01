@@ -63,6 +63,14 @@ RSpec.describe Source::Yaml do
         expect(@obj.issues.length).to eq(4)
         @obj.create("TITLE1", "BODY1")
         expect(@obj.issues.length).to eq(5)
+        expect(@obj.issues.first["stm_status"]).to eq("open")
+      end
+
+      it "creates an issue with closed status" do
+        expect(@obj.issues.length).to eq(4)
+        @obj.create("TITLE2", "BODY2", {"status" => "closed"})
+        expect(@obj.issues.length).to eq(5)
+        expect(@obj.issues.last["stm_status"]).to eq("closed")
       end
     end
 
