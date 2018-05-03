@@ -106,9 +106,10 @@ module Source
     def configure_octokit
       @octoclient ||= begin
         config = Iora::Config.new(:github)
+        Octokit.auto_paginate = true
         Octokit.configure do |c|
-          c.login    = config.username
-          c.password = config.password
+          c.login         = config.username
+          c.password      = config.password
         end
       end
     end
