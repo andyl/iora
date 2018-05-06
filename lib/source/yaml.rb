@@ -8,7 +8,7 @@ module Source
 
     attr_accessor :repo_data, :data_file
 
-    def initialize(data_file)
+    def initialize(data_file, _opts = {})
       @data_file = File.expand_path(data_file)
       @repo_data = if File.exist?(data_file)
         YAML.load_file(data_file)

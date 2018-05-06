@@ -10,12 +10,16 @@ module Source
   class Github < Base
 
     attr_accessor :repo_name, :repo_issues, :repo_comments
-    attr_reader :normalized_issues, :normalized_comments
+    attr_reader :normalized_issues, :normalized_comments, :lcl_opts
 
-    def initialize(name, _opts = {})
+    # opts: state: "open" | "closed" | "all" (default)
+    # labels: <comma separated list>
+    def initialize(name, opts = {})
       configure_octokit
+      Octokit.auto_paginate = true
+      @lcl_opts = {per_page: 100}.merge(opts)
       @repo_name = name
-      @repo_issues   = Octokit.issues(repo_name)
+      @repo_issues   = Octokit.issues(repo_name, lcl_opts)
       @repo_comments = Octokit.issues_comments(repo_name)
     end
 
@@ -106,7 +110,6 @@ module Source
     def configure_octokit
       @octoclient ||= begin
         config = Iora::Config.new(:github)
-        Octokit.auto_paginate = true
         Octokit.configure do |c|
           c.login         = config.username
           c.password      = config.password

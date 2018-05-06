@@ -72,6 +72,12 @@ RSpec.describe Source::Yaml do
         expect(@obj.issues.length).to eq(5)
         expect(@obj.issues.last["stm_status"]).to eq("closed")
       end
+
+      it "creates labels" do
+        @obj.create("TITLE3", "BODY3", {"labels" => "BING"})
+        expect(@obj.issues.last["stm_labels"]).to_not be_nil
+        expect(@obj.issues.last["stm_labels"]).to eq("BING")
+      end
     end
 
     describe "#update" do
