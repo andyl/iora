@@ -13,7 +13,7 @@ class Iora
   subs = %i(issue issues create update open close create_comment update_comment)
   delegate subs => :source
 
-  def initialize(type, id, opts = {})
+  def initialize(type, id, opts = {}) #
     @type = type.to_sym
     @source_id = id
     @source = case @type
