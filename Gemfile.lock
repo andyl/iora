@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    iora (0.1.1)
+    iora (0.1.2)
       deep_merge (~> 1.2)
       octokit (~> 4.6)
 
