@@ -39,11 +39,5 @@ module Source
     def update_comment(comment_id, body)
       raise "IMPLEMENT IN SUBCLASS"
     end
-
-    class << self
-      def hexid_for(issue)
-        issue["body"][/(^| )\/(\h\h\h\h\h\h)($| )/, 2]
-      end
-    end
   end
 end

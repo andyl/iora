@@ -23,5 +23,11 @@ class Iora
         raise IoraError::InvalidSourceType, "Invalid Source Type (#{type})"
     end
   end
+
+  class << self
+    def hexid_for(issue)
+      issue["body"][/(^| )\/(\h\h\h\h\h\h)($| )/, 2]
+    end
+  end
 end
 
