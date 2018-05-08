@@ -162,6 +162,11 @@ RSpec.describe Source::Yaml do
         result = klas.hexid_for({"body" => "asdf qwer /abc123"})
         expect(result).to eq("abc123")
       end
+
+      it "gets the hexid" do
+        result = klas.hexid_for({"body" => "asdf qwer\n/def123"})
+        expect(result).to eq("def123")
+      end
     end
   end
 end
