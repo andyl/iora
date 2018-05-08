@@ -29,10 +29,6 @@ module Source
       @lcl_issues ||= combine(normalized_issues, normalized_comments)
     end
 
-    def issue(exid)
-      issues.select {|x| x["exid"] == exid}.first
-    end
-
     def create(title, body, opts = {})
       Octokit.create_issue(repo_name, title, body, opts)
     end

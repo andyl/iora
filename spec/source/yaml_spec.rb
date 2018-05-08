@@ -156,5 +156,12 @@ RSpec.describe Source::Yaml do
         expect(@obj.issues.first["stm_comments"].first["body"]).to eq("BING")
       end
     end
+
+    describe ".hexid_for" do
+      it "gets the hexid" do
+        result = klas.hexid_for({"body" => "asdf qwer /abc123"})
+        expect(result).to eq("abc123")
+      end
+    end
   end
 end

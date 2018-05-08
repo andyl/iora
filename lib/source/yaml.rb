@@ -22,10 +22,6 @@ module Source
       repo_data.map {|el| convert(el)}
     end
 
-    def issue(exid)
-      issues.select {|x| x["exid"] == exid}.first
-    end
-
     def create(title, body, opts = {})
       next_seq = repo_data.length + 1
       repo_data << new_issue(next_seq, title, body, opts)
