@@ -48,7 +48,7 @@ module Source
     end
 
     def create_comment(issue_sequence, body)
-      tgt = @repo_data.select {|el| el["sequence"] = issue_sequence}.first || {}
+      tgt = @repo_data.select {|el| el["sequence"] == issue_sequence}.first || {}
       cls = tgt.fetch("comments", [])
       com = new_comment(tgt, body)
       cls << com

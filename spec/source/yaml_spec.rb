@@ -66,6 +66,20 @@ RSpec.describe Source::Yaml do
         expect(@obj.issues.first["stm_status"]).to eq("open")
       end
 
+      it "has proper sequence" do
+        expect(@obj.issues.length).to eq(4)
+        expect(@obj.issues.first["sequence"]).to eq(1)
+        expect(@obj.issues.last["sequence"]).to eq(4)
+      end
+
+      it "creates multiple issues" do
+        expect(@obj.issues.length).to eq(4)
+        @obj.create("TITLE1", "BODY1")
+        @obj.create("TITLE2", "BODY2")
+        expect(@obj.issues.length).to eq(6)
+        expect(@obj.issues.first["stm_status"]).to eq("open")
+      end
+
       it "creates an issue with closed status" do
         expect(@obj.issues.length).to eq(4)
         @obj.create("TITLE2", "BODY2", {"status" => "closed"})
@@ -103,10 +117,31 @@ RSpec.describe Source::Yaml do
 
     describe "#create_comment" do
       it "creates comment" do
+        expect(@obj.issues.length).to eq(4)
         @obj.create_comment(1, "HELLO")
+        expect(@obj.issues.length).to eq(4)
         expect(@obj.issues.first["stm_comments"].first).to_not be_nil
         expect(@obj.issues.first["stm_comments"].first["issue_sequence"]).to eq(1)
         expect(@obj.issues.first["stm_comments"].first["body"]).to eq("HELLO")
+      end
+
+      it "creates comment mid-pack" do
+        expect(@obj.issues.length).to eq(4)
+        @obj.create_comment(3, "HELLO")
+        expect(@obj.issues.length).to eq(4)
+        expect(@obj.issues[2]["stm_comments"].first).to_not be_nil
+        expect(@obj.issues[2]["stm_comments"].first["issue_sequence"]).to eq(3)
+        expect(@obj.issues[2]["stm_comments"].first["body"]).to eq("HELLO")
+      end
+
+      it "creates multiple comments" do
+        @obj.create("title1", "body1")
+        @obj.create("title2", "body2")
+        expect(@obj.issues.length).to eq(6)
+        @obj.create_comment(1, "HELLO")
+        @obj.create_comment(1, "BYE")
+        expect(@obj.issues.length).to eq(6)
+        expect(@obj.issues.first["stm_comments"].length).to eq(2)
       end
     end
 
