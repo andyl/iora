@@ -26,7 +26,7 @@ class Iora
 
   class << self
     def hexid_for(issue)
-      issue["body"][/(^| )\/(\h\h\h\h\h\h)($| )/, 2]
+      issue["body"][/(^| |>)\/(\h\h\h\h\h\h)($| |<)/, 2]
     end
   end
 end

@@ -39,4 +39,22 @@ RSpec.describe Iora do
       expect { klas.new(:bing, "bong") }.to raise_exception(IoraError::InvalidSourceType)
     end
   end
+
+  describe ".hexid_for" do
+    it "gets the hexid with spaces" do
+      result = klas.hexid_for({"body" => "asdf qwer /abc123"})
+      expect(result).to eq("abc123")
+    end
+
+    it "gets the hexid with newlines" do
+      result = klas.hexid_for({"body" => "asdf qwer\n/def123\nqwer"})
+      expect(result).to eq("def123")
+    end
+
+    it "gets the hexid with tags" do
+      result = klas.hexid_for({"body" => "asdf qwer<br/>/bbb333<p>"})
+      expect(result).to eq("bbb333")
+    end
+  end
+
 end

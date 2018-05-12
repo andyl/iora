@@ -13,7 +13,7 @@ module Source
     end
 
     def issue_hexid(hexid)
-      issues.select {|x| x["body"] =~ /(^| )\/#{hexid}($| )/}.first
+      issues.select {|x| x["body"] =~ /(^| |>)\/#{hexid}($| |<)/}.first
     end
 
     def create(title, body, opts = {} )
