@@ -17,7 +17,7 @@ module Source
     def initialize(name, opts = {})
       configure_octokit
       Octokit.auto_paginate = true
-      @lcl_opts = {per_page: 100}.merge(opts)
+      @lcl_opts = {per_page: 100, state: "all"}.merge(opts)
       @repo_name = name
       @repo_issues   = Octokit.issues(repo_name, lcl_opts)
       @repo_comments = Octokit.issues_comments(repo_name)
