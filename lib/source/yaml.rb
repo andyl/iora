@@ -27,7 +27,7 @@ module Source
       new_item = new_issue(next_seq, title, body, opts)
       repo_data << new_item
       File.open(data_file, 'w') {|f| f.puts repo_data.to_yaml}
-      new_item
+      convert(new_item)
     end
 
     def update(issue_sequence, opts)
