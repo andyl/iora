@@ -30,7 +30,8 @@ module Source
     end
 
     def create(title, body, opts = {})
-      Octokit.create_issue(repo_name, title, body, opts)
+      result = Octokit.create_issue(repo_name, title, body, opts)
+      normalize_issue(result)
     end
 
     def update(issue_sequence, opts)
